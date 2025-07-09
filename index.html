@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Copy Paste</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://extensions.tableauusercontent.com/resources/tableau.extensions.1.latest.min.js"></script>
+    <script src="/script.js" defer></script>
+  </head>
+  <body>
+    <div class="container" id="app">
+      <p v-if="!validConfig" class="is-italic m-3 has-text-centered click" @click="configure">
+        This extension needs to be configured.
+      </p>
+      <div v-else class="field">
+        <div class="control">
+          <button
+            class="button is-small"
+            @click="copy"
+            :disabled="!validConfig || markCount === 0"
+            title="Select marks then click button to copy."
+          >
+            {{buttonLabel}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
