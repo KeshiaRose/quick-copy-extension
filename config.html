@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Copy Paste Configuration</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <script src="https://extensions.tableauusercontent.com/resources/tableau.extensions.1.latest.min.js"></script>
+    <script src="/config.js" defer></script>
+  </head>
+  <body>
+    <section class="section" id="app">
+      <div class="container">
+        <h1 class="title is-4">
+          Configuration
+        </h1>
+
+        <div class="field">
+          <label class="label">Source Worksheet</label>
+          <div class="control">
+            <div class="select is-fullwidth">
+              <select v-model="worksheet">
+                <option
+                  v-for="worksheet in worksheets"
+                  v-bind:value="worksheet"
+                >
+                  {{ worksheet }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Included Fields</label>
+          <p v-if="fields.length === 0" class="is-italic">
+            Select a worksheet to see available fields.
+          </p>
+          <div v-for="field in fields" class="control">
+            <label class="checkbox">
+              <input type="checkbox" v-model="field.selected" />
+              {{field.name}}
+            </label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label class="label">Copied Data Delimiter</label>
+          <p class="is-small">
+            Default = "<span class="tag">, </span>", Tab = "<span class="tag">\t</span>", New Line = "<span class="tag">\n</span>"
+          </p>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              placeholder=","
+              v-model="delimiter"
+            />
+          </div>
+        </div>
+        
+        <div class="field">
+          <label class="label">Button Label</label>
+          <div class="control">
+            <input
+              class="input"
+              type="text"
+              placeholder="Copy selected data"
+              v-model="buttonLabel"
+            />
+          </div>
+        </div>
+
+        <div class="field">
+          <div class="control">
+            <button
+              class="button is-link"
+              @click="save"
+              :disabled="!validConfig"
+            >
+              Save
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
